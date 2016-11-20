@@ -9,6 +9,7 @@
 class Post extends CI_Model
 {
     public $id;
+    public $date;
     public $description;
     public $url;
     public $user;

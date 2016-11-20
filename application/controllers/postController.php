@@ -45,6 +45,10 @@ class postController extends CI_Controller
         }
     }
 
+    /**
+     * @param $limit
+     * @param $offset
+     */
     private function get($limit, $offset)
     {
 //        $query = $this->db->get('mytable', $limit, $offset);
@@ -54,10 +58,22 @@ class postController extends CI_Controller
         }
     }
 
+    /**
+     * @param $data
+     * Save data for entered post
+     */
     private function postPost($data)
     {
-        $post = array('id'=>$data->id, 'description'=>$data->description, 'url'=>$data->url, 'user'=>$data->user);
-        $this->db->insert('post', $post);
+        // validate whether values for all fields are present
+        if($data->date == '' || $data->description == '' || $data->url == '' || $data->user == ''){
+            echo json_encode(array('error'=>'Date/Description/Data/User cannot be empty for Post entered.'));
+            return;
+        }
+
+        // if necessary data are present, save in DB
+        $post = array('id'=>$data->id, 'date'=> $data->date, 'description'=>$data->description,
+            'url'=>$data->url, 'user'=>$data->user);
+        echo $this->db->insert('post', $post);
     }
 
     private function delete()

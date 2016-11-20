@@ -68,18 +68,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script type="application/javascript" src="/awt/js/jquery.js"></script>
 	<script type="application/javascript">
 		$(document).ready(function () {
+
+            function validatePostData() {
+                return !($('#post').val() === '' || $('#url').val() === '' || $('#user').val() === '');
+            }
+
 			$('#enterPost').click(function () {
+                if(!validatePostData()){
+                    alert('All sections need to be filled!') ;
+                    return;
+                }
+
 				$.ajax({
 					url: 'index.php/postController/post',
 					method: 'POST',
 					dataType: 'json',
 					data: 	JSON.stringify({	'id': null,
+                                'date': new Date().getTime(),
 								'description': $('#post').val(),
 								'url': $('#url').val(),
 								'user': $('#user').val()
 							})
 				}).done(function (data) {
-					$('#test').text(data);
+                    if(data.error){
+                        alert(data.error);
+                    } else {
+                        console.log('Inserted: ' + data + ' Post.');
+                    }
 				});
 			});
 		});
