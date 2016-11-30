@@ -69,10 +69,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script type="application/javascript">
 		$(document).ready(function () {
 
+			/**
+			 * Validate the inputs for empty
+			 */
             function validatePostData() {
                 return !($('#post').val() === '' || $('#url').val() === '' || $('#user').val() === '');
             }
 
+			/**
+			 * For Posting data on button click
+			 */
 			$('#enterPost').click(function () {
                 if(!validatePostData()){
                     alert('All sections need to be filled!') ;
@@ -96,8 +102,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         console.log('Inserted: ' + data + ' Post.');
                     }
 				});
-			});
-		});
+			}); //
+
+		}); // END
 	</script>
 </head>
 <body>
@@ -113,6 +120,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 
 	<div id="test"></div>
+
+    <div id="posts">
+		<?php
+		if(isset($results)) {
+			foreach ($results as $data) {
+				echo $data->description . " - " . $data->url . "<br>";
+			}
+		}
+		?>
+		<p>
+			<?php
+			if(isset($links)){
+				echo $links;
+			}
+			?>
+		</p>
+	</div>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>

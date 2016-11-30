@@ -11,7 +11,9 @@ class postController extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper("url");
         $this->load->model('post');
+        $this->load->library('pagination');
         $this->load->database();
     }
 
@@ -51,11 +53,34 @@ class postController extends CI_Controller
      */
     private function get($limit, $offset)
     {
-//        $query = $this->db->get('mytable', $limit, $offset);
-        $query = $this->db->get('post');
+
+        $config = array();
+        $config["base_url"] = base_url() . "postController/post";
+        $config["total_rows"] = $this->record_count();
+        $config["per_page"] = 20;
+        $config["uri_segment"] = 3;
+//        $config['full_tag_open'] = '<ul class="pagination" id="search_page_pagination">';
+//        $config['full_tag_close'] = '</ul>';
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $query = $this->db->get('post', $config["per_page"], $page);
+        $results = array();
         foreach ($query->result() as $row){
-            echo $row;
+            $results[] = $row;
         }
+        $data["results"] = $results;
+        $data["links"] = $this->pagination->create_links();
+
+        $this->load->view("index", $data);
+    }
+
+    /**
+     * @return mixed
+     */
+    private function record_count() {
+        return $this->db->count_all("Post");
     }
 
     /**
