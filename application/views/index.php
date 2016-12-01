@@ -89,8 +89,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					url: '<?php echo base_url() ?>index.php/postController/post',
 					method: 'POST',
 					dataType: 'json',
-					data: 	JSON.stringify({	'id': null,
-                                'date': new Date().getTime(),
+					data: 	JSON.stringify({
+                                'id': null,
+                                'date': (new Date().getTime() + (3600000*4.5)), // add time zone difference
 								'description': $('#post').val(),
 								'url': $('#url').val(),
 								'user': $('#user').val()
