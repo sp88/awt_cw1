@@ -48,14 +48,13 @@ class postController extends CI_Controller
     }
 
     /**
-     * @param $limit
-     * @param $offset
+     *
      */
-    private function get($limit, $offset)
+    private function get()
     {
 
         $config = array();
-        $config["base_url"] = base_url() . "postController/post";
+        $config["base_url"] = base_url() . "/index.php/postController/post";
         $config["total_rows"] = $this->record_count();
         $config["per_page"] = 20;
         $config["uri_segment"] = 3;

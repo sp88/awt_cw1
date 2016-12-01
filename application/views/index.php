@@ -99,6 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     if(data.error){
                         alert(data.error);
                     } else {
+						location.reload();
                         console.log('Inserted: ' + data + ' Post.');
                     }
 				});
@@ -135,14 +136,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<?php
 		if(isset($results)) {
 			foreach ($results as $data) {
-				echo "<div class='eachPost'><a href='index.php/commentController/$data->id'>"
-                    . $data->description . " - " . $data->url
-                    . "</a>"
+				echo "<div class='eachPost'> "
+					. anchor('commentController/'.$data->id, $data->description)
                     . "<p> Submitted by: " . $data->user
                     . " at " . date("d/m/Y H:i:s", (($data->date)/1000)) . "</p>"
-                    . "<p><input type='button' name='$data->id' value = 'Like' class='likePost' >
-                            <input type='button' name='$data->id' value = 'Dislike' class='dislikePost'></p>"
-                    ."</div><br>";
+                    . "<p><input type='button' name='$data->id' value = 'Like' class='likePost'> "
+                    . "<input type='button' name='$data->id' value = 'Dislike' class='dislikePost'></p>"
+                    . "</div><br>";
 			}
 		}
 		?>
