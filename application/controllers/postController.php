@@ -26,9 +26,9 @@ class postController extends CI_Controller
 
         switch ($method) {
             case 'GET':
-                $offset = $this->input->get('offset',0);
-                $limit = $this->input->get('limit',10);
-                $this->get($limit, $offset);
+//                $offset = $this->input->get('offset',0);
+//                $limit = $this->input->get('limit',10);
+                $this->get();
                 break;
 
             case 'POST' :
@@ -104,6 +104,26 @@ class postController extends CI_Controller
     {
         $id = $this->input->delete('id');
         $this->db->delete('post', array('id' => $id));
+    }
+
+    /**
+     * Send data to like a specific post
+     */
+    public function likePost()
+    {
+        $data = file_get_contents("php://input");
+        $json = json_decode($data);
+        echo 'liked post: '. $json->id;
+    }
+
+    /**
+     * Send data to dislike a specific post
+     */
+    public function dislikePost()
+    {
+        $data = file_get_contents("php://input");
+        $json = json_decode($data);
+        echo 'disliked post: '. $json->id;
     }
 
 }

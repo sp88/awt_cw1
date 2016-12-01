@@ -105,14 +105,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				});
 			}); //
 
+            /*
+             * AJAX call when user likes post
+             */
             $('.likePost').click(function () {
-                console.log($(this).attr('name'));
-                alert('like clicked ' + $(this).attr('name'));
+                $.ajax({
+                    url: '<?php echo base_url() ?>index.php/postController/likePost',
+                    method: 'POST',
+                    data: 	JSON.stringify({'id': parseInt($(this).attr('name')) }),
+                    success: function(data){console.log(data)},
+                    error: function(data){console.log(data)}
+                });
             });
 
+            /*
+             * AJAX call when user dislikes post
+             */
             $('.dislikePost').click(function () {
-                console.log($(this).attr('name'));
-                alert('dislike clicked ' + $(this).attr('name'));
+                $.ajax({
+                    url: '<?php echo base_url() ?>index.php/postController/dislikePost',
+                    method: 'POST',
+                    data: 	JSON.stringify({'id': parseInt($(this).attr('name')) }),
+                    success: function(data){console.log(data)},
+                    error: function(data){console.log("something went wrong" + data)}
+                });
             });
 
 		}); // END
