@@ -13,6 +13,8 @@ class Post extends CI_Model
     public $description;
     public $url;
     public $user;
+    public $likes;
+    public $dislikes;
 
     public function __construct()
     {
@@ -30,6 +32,24 @@ class Post extends CI_Model
 
     public function getEntryPage($limit, $offset){
 
+    }
+
+    public function likePost($id)
+    {
+        // prevent data from being escaped by FALSE parameter
+        $this->db->set('likes', 'likes+1', FALSE);
+        $this->db->where('id', $id);
+        $result = $this->db->update('post');
+        echo $result;
+    }
+
+    public function dislikePost($id)
+    {
+        // prevent data from being escaped by FALSE parameter
+        $this->db->set('dislikes', 'dislikes+1', FALSE);
+        $this->db->where('id', $id);
+        $result = $this->db->update('post');
+        echo $result;
     }
 
 }

@@ -113,7 +113,8 @@ class postController extends CI_Controller
     {
         $data = file_get_contents("php://input");
         $json = json_decode($data);
-        echo 'liked post: '. $json->id;
+        $result = $this->post->likePost($json->id);
+        echo json_encode(array('success'=> $result));
     }
 
     /**
@@ -123,7 +124,8 @@ class postController extends CI_Controller
     {
         $data = file_get_contents("php://input");
         $json = json_decode($data);
-        echo 'disliked post: '. $json->id;
+        $result = $this->post->dislikePost($json->id);
+        echo json_encode(array('success'=> $result));
     }
 
 }

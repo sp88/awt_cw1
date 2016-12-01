@@ -109,11 +109,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              * AJAX call when user likes post
              */
             $('.likePost').click(function () {
+                var id = parseInt($(this).attr('name'));
+                var count = $('#likes'+id).text();
                 $.ajax({
                     url: '<?php echo base_url() ?>index.php/postController/likePost',
                     method: 'POST',
-                    data: 	JSON.stringify({'id': parseInt($(this).attr('name')) }),
-                    success: function(data){console.log(data)},
+                    data: 	JSON.stringify({'id': id }),
+                    success: function(data){console.log(data); $('#likes'+id).text(  ++count );},
                     error: function(data){console.log(data)}
                 });
             });
@@ -122,11 +124,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              * AJAX call when user dislikes post
              */
             $('.dislikePost').click(function () {
+                var id = parseInt($(this).attr('name'));
+                var count = $('#dislikes'+id).text();
                 $.ajax({
                     url: '<?php echo base_url() ?>index.php/postController/dislikePost',
                     method: 'POST',
-                    data: 	JSON.stringify({'id': parseInt($(this).attr('name')) }),
-                    success: function(data){console.log(data)},
+                    data: 	JSON.stringify({'id': id }),
+                    success: function(data){console.log(data); $('#dislikes'+id).text(  ++count );},
                     error: function(data){console.log("something went wrong" + data)}
                 });
             });
@@ -156,8 +160,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					. anchor('commentController/'.$data->id, $data->description)
                     . "<p> Submitted by: " . $data->user
                     . " at " . date("d/m/Y H:i:s", (($data->date)/1000)) . "</p>"
-                    . "<p><input type='button' name='$data->id' value = 'Like' class='likePost'> "
-                    . "<input type='button' name='$data->id' value = 'Dislike' class='dislikePost'></p>"
+                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span><input type='button' name='$data->id' value = 'Like' class='likePost'> "
+                    . "Dislikes: <span id='dislikes$data->id'>$data->dislikes </span><input type='button' name='$data->id' value = 'Dislike' class='dislikePost'></p>"
                     . "</div><br>";
 			}
 		}
