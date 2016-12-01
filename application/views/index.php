@@ -104,6 +104,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				});
 			}); //
 
+            $('.likePost').click(function () {
+                console.log($(this).attr('name'));
+                alert('like clicked ' + $(this).attr('name'));
+            });
+
+            $('.dislikePost').click(function () {
+                console.log($(this).attr('name'));
+                alert('dislike clicked ' + $(this).attr('name'));
+            });
+
 		}); // END
 	</script>
 </head>
@@ -121,15 +131,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<div id="test"></div>
 
-    <div id="posts">
+    <div id="posts" class="posts">
 		<?php
 		if(isset($results)) {
 			foreach ($results as $data) {
-				echo $data->description . " - " . $data->url . "<br>";
+				echo "<div class='eachPost'><a href='index.php/commentController/$data->id'>"
+                    . $data->description . " - " . $data->url
+                    . "</a>"
+                    . "<p> Submitted by: " . $data->user
+                    . " at " . date("d/m/Y H:i:s", (($data->date)/1000)) . "</p>"
+                    . "<p><input type='button' name='$data->id' value = 'Like' class='likePost' >
+                            <input type='button' name='$data->id' value = 'Dislike' class='dislikePost'></p>"
+                    ."</div><br>";
 			}
 		}
 		?>
-		<p>
+		<p class="links">
 			<?php
 			if(isset($links)){
 				echo $links;
