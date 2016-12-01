@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }
 
 				$.ajax({
-					url: 'index.php/postController/post',
+					url: '<?php echo base_url() ?>index.php/postController/post',
 					method: 'POST',
 					dataType: 'json',
 					data: 	JSON.stringify({	'id': null,
@@ -135,7 +135,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 });
             });
 
-		}); // END
+            /*
+             * Sort by Date
+             */
+            $('#sortByDate').click(function () {
+                window.location = '<?php echo base_url() ?>index.php/postController/post?sort=date';
+            });
+
+            /*
+             * Sort by Vote
+             */
+            $('#sortByVote').click(function () {
+                window.location = '<?php echo base_url() ?>index.php/postController/post?sort=vote';
+            });
+
+            /*
+             * Navigate to Home page when title is clicked
+             */
+            $('h1').click(function () {
+                window.location = '<?php echo base_url() ?>index.php';
+            });
+
+        }); // END
 	</script>
 </head>
 <body>
@@ -148,6 +169,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		Post: <input type="text" id="post">
 		URL: <input type="url" id="url">
 		<button id="enterPost">New Post</button>
+        <br><br>
+        <input type="button" id="sortByDate" value="Sort By Date">
+        <input type="button" id="sortByVote" value="Sort By Votes">
+        <br><br>
 	</div>
 
 	<div id="test"></div>
@@ -157,7 +182,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		if(isset($results)) {
 			foreach ($results as $data) {
 				echo "<div class='eachPost'> "
-					. anchor('commentController/'.$data->id, $data->description)
+					. anchor('commentController/comment/'.$data->id, $data->description)
                     . "<p> Submitted by: " . $data->user
                     . " at " . date("d/m/Y H:i:s", (($data->date)/1000)) . "</p>"
                     . "<p>Likes: <span id='likes$data->id'>$data->likes </span><input type='button' name='$data->id' value = 'Like' class='likePost'> "

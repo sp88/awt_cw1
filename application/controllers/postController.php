@@ -26,9 +26,8 @@ class postController extends CI_Controller
 
         switch ($method) {
             case 'GET':
-//                $offset = $this->input->get('offset',0);
-//                $limit = $this->input->get('limit',10);
-                $this->get();
+                $sort = $this->input->get('sort','date');
+                $this->get($sort);
                 break;
 
             case 'POST' :
@@ -50,7 +49,7 @@ class postController extends CI_Controller
     /**
      *
      */
-    private function get()
+    private function get($sort)
     {
 
         $config = array();
@@ -58,12 +57,19 @@ class postController extends CI_Controller
         $config["total_rows"] = $this->record_count();
         $config["per_page"] = 20;
         $config["uri_segment"] = 3;
+        $config["prev_link"] = 'Previous';
+        $config["next_link"] = 'Next';
 //        $config['full_tag_open'] = '<ul class="pagination" id="search_page_pagination">';
 //        $config['full_tag_close'] = '</ul>';
 
         $this->pagination->initialize($config);
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        if($sort == 'date'){
+            $this->db->order_by('date', 'DESC');
+        } else if ($sort == 'vote') {
+            $this->db->order_by('likes', 'DESC');
+        }
         $query = $this->db->get('post', $config["per_page"], $page);
         $results = array();
         foreach ($query->result() as $row){
