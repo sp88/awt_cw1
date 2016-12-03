@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -79,6 +81,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script type="application/javascript">
         $(document).ready(function () {
 
+            /**
+             * Validate entered fields
+             */
+            function validateCommentData() {
+                if($('#user').val() == '' || $('#comment').val() == ''){
+                    return false;
+                }
+                return true;
+            }
+
+            /*
+             * Add entered comment to DB
+             */
+            $('#enterComment').click(function () {
+                if(!validateCommentData()){
+                    alert('All fields must be filled');
+                    return;
+                }
+//                var id = parseInt($(this).attr('name'));
+//                var count = $('#dislikes'+id).text();
+                $.ajax({
+                    url: '<?php echo base_url() ?>index.php/commentController/comment',
+                    method: 'POST',
+                    data: 	JSON.stringify(
+                        {
+                            'user' : $('#user').val(),
+                            'post': <?php echo $id; ?>,
+                            'comment': $('#comment').val(),
+                            'parentComment': 0
+                        }),
+                    success: function(data){console.log(data); /*$('#dislikes'+id).text(  ++count );*/},
+                    error: function(data){console.log("something went wrong" + data)}
+                });
+            });
 
         }); // END
     </script>
@@ -91,6 +127,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         if (isset($post)) {
 //            print_r($post);
             foreach ($post as $data) {
+                $GLOBALS['postId'] = $data->id;
                 echo "<div class='eachPost'> "
                     . "<div class='form-group .col-md-1'>"
                     . "<h2>$data->description</h2>"
@@ -105,6 +142,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
         ?>
     </div>
+
+    <div class="commentBox form-group">
+        Enter Comment here : <br>
+        <input type="text" placeholder="Username" id="user">
+        <textarea id="comment" class="form-control" rows="4" placeholder="Comment"></textarea><br>
+        <button id="enterComment" value="">Comment</button>
+    </div>
+
+    <div class="allComments">
+
+    </div>
+
 </div>
 </body>
 </html>

@@ -19,5 +19,12 @@ class Comment extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        $this->load->database();
+    }
+
+    public function saveComment($data)
+    {
+        $this->db->insert('comment', $data);
+        return $this->db->insert_id();
     }
 }

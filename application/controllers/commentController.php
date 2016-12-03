@@ -45,7 +45,20 @@ class CommentController extends CI_Controller
     private function get()
     {
         $data = array();
+        $data["id"] = $this->uri->segment(3);
         $data["post"] = $this->post->getPost($this->uri->segment(3));
         $this->load->view('commentView', $data);
+    }
+
+    private function post()
+    {
+        $data = file_get_contents("php://input");
+        $json = json_decode($data);
+        if($json->user == '' || $json->comment == '' ||($json->post == '' && $json->parentComment == '')){
+            echo json_encode(array("error" => "Fields Cannot be empty."));
+            return;
+        }
+        $insertedId = $this->comment->saveComment($json);
+        echo json_encode(array("insertedId" => $insertedId));
     }
 }
