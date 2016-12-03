@@ -66,6 +66,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</style>
 
 	<script type="application/javascript" src="/awt/js/jquery.js"></script>
+	<link href="<?= base_url();?>css/style.css" rel="stylesheet">
+	<link href="<?= base_url();?>bootstrap/css/bootstrap.css" rel="stylesheet">
+	<script src="<?= base_url();?>bootstrap/js/bootstrap.min.js"></script>
 	<script type="application/javascript">
 		$(document).ready(function () {
 
@@ -183,12 +186,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		if(isset($results)) {
 			foreach ($results as $data) {
 				echo "<div class='eachPost'> "
-					. anchor('commentController/comment/'.$data->id, $data->description)
+					. "<div class='form-group .col-md-1'>"
+					. "<a href='index.php/commentController/comment/$data->id'>$data->description</a>"
                     . "<p> Submitted by: " . $data->user
                     . " at " . date("d/m/Y H:i:s", (($data->date)/1000)) . "</p>"
-                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span><input type='button' name='$data->id' value = 'Like' class='likePost'> "
+                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span><input type='button' name='$data->id' value = 'Like' class='likePost .col-md-6'> "
                     . "Dislikes: <span id='dislikes$data->id'>$data->dislikes </span><input type='button' name='$data->id' value = 'Dislike' class='dislikePost'></p>"
-                    . "</div><br>";
+                    . "</div></div><br>";
 			}
 		}
 		?>
@@ -198,6 +202,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				echo $links;
 			}
 			?>
+		<div class="form-group">
+			<label for="firstName" class="col-lg-3 control-label">First Name</label>
+			<div class="col-lg-6">
+				<input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name">
+			</div>
+		</div>
 		</p>
 	</div>
 
