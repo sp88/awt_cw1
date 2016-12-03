@@ -11,7 +11,9 @@ class CommentController extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper("url");
         $this->load->model('comment');
+        $this->load->model('post');
         $this->load->database();
     }
 
@@ -38,5 +40,12 @@ class CommentController extends CI_Controller
                 $this->delete();
                 break;
         }
+    }
+
+    private function get()
+    {
+        $data = array();
+        $data["post"] = $this->post->getPost($this->uri->segment(3));
+        $this->load->view('commentView', $data);
     }
 }

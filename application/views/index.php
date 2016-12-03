@@ -187,7 +187,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			foreach ($results as $data) {
 				echo "<div class='eachPost'> "
 					. "<div class='form-group .col-md-1'>"
-					. "<a href='index.php/commentController/comment/$data->id'>$data->description</a>"
+					. "<a href=" . base_url() . "index.php/commentController/comment/$data->id>$data->description</a>"
                     . "<p> Submitted by: " . $data->user
                     . " at " . date("d/m/Y H:i:s", (($data->date)/1000)) . "</p>"
                     . "<p>Likes: <span id='likes$data->id'>$data->likes </span><input type='button' name='$data->id' value = 'Like' class='likePost .col-md-6'> "

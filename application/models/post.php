@@ -26,8 +26,18 @@ class Post extends CI_Model
         $this->db->insert('post', $data);
     }
 
-    public function getEntry($id){
-
+    public function getPost($id){
+        $this->db->where('id', $id);
+        $query = $this->db->get('post');
+        if ( $query->num_rows() == 1 )
+        {
+            $results = array();
+            foreach ($query->result('post') as $row){
+                $results[] = $row;
+            }
+            return $results;
+        }
+        return false;
     }
 
     public function getEntryPage($limit, $offset){
