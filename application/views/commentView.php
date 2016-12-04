@@ -100,8 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     alert('All fields must be filled');
                     return;
                 }
-//                var id = parseInt($(this).attr('name'));
-//                var count = $('#dislikes'+id).text();
+
                 $.ajax({
                     url: '<?php echo base_url() ?>index.php/commentController/comment',
                     method: 'POST',
@@ -118,6 +117,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     },
                     error: function (data) {
                         console.log("something went wrong" + data)
+                    }
+                });
+            });
+
+
+            /*
+             * When a user hit reply button show necessary fields / toggle fields
+             */
+            $('.replyButton').click(function () {
+                var id = parseInt($(this).attr('name'));
+                $('#userInput'+id).toggle();
+                $('#userReply'+id).toggle();
+                $('#replyButton'+id).toggle();
+            });
+
+            function validateReplyData(id) {
+                if($('#userInput'+id).val() == '' || $('#userReply'+id).val() == ''){
+                    return false;
+                }
+                return true;
+            }
+
+            /*
+             * Send Reply data to Controller to be saved
+             */
+            $('.sendReplyButton').click(function () {
+                var id = parseInt($(this).attr('name'));
+                if(!validateReplyData(id)){
+                    alert('Fields must be filled!');
+                    return;
+                }
+                $.ajax({
+                    url: '<?php echo base_url() ?>index.php/commentController/reply',
+                    method: 'POST',
+                    data: JSON.stringify(
+                        {
+                            'user': $('#userInput'+id).val(),
+                            'comment': $('#userReply'+id).val(),
+                            'parentComment':id,
+                            'date': (new Date().getTime() + (3600000*4.5)) // add time zone difference
+                        }),
+                    success: function (data) {
+                        console.log(data);
+                        /*$('#dislikes'+id).text(  ++count );*/
+                    },
+                    error: function (data) {
+                        console.log("something went wrong" + data);
                     }
                 });
             });
@@ -162,24 +208,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             {
                 foreach ($childComments as $childComment)
                 {
-                    echo "<div class='container'>"
-                        . "<p>$childComment->comment</p>"
-                        . "<p>Submitted by: $childComment->user "
-                        . " at " . date("d/m/Y H:i:s", (($childComment->date)/1000)) . " "
-                        . "<button class='btn btn-primary' id='$childComment->id'>Reply</button></p>";
-                    printChildComments($childComment->childComments);
-                    echo "</div>";
+                    printComment($childComment);
                 }
             }
 
-            foreach ($comments as $comment) {
+            function printComment($comment)
+            {
                 echo "<div class='container'>"
                     . "<p>$comment->comment</p>"
                     . "<p>Submitted by: $comment->user "
                     . " at " . date("d/m/Y H:i:s", (($comment->date)/1000)) . " "
-                    . "<button class='btn btn-primary' id='$comment->id'>Reply</button></p>";
-                    printChildComments($comment->childComments);
-                    echo "</div>";
+                    . "<button class='btn btn-link replyButton' id='showReplyArea$comment->id' name='$comment->id'>"
+                    . "Reply</button></p>"
+                    . "<div><input type='text' id='userInput$comment->id' placeholder='User' style='display:none'></div>"
+                    . "<div><textarea type='text' id='userReply$comment->id' placeholder='Reply' class='form-control'
+                            style='display:none'></textarea></div>"
+                    . "<div><input type='button' id='replyButton$comment->id' value = 'Reply' name='$comment->id'
+                            class='btn btn-primary sendReplyButton' style='display:none'></div>"
+                ;
+                printChildComments($comment->childComments);
+                echo "</div>";
+            }
+
+            foreach ($comments as $comment) {
+                printComment($comment);
             }
         }
         ?>
