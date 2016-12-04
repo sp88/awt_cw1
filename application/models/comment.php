@@ -43,24 +43,23 @@ class Comment extends CI_Model
         foreach ($query->result('comment') as $row){
             $comments[] = $row;
             // recursively add level comments
-            $this->getNestedChildComments($row->id, $row);
+            $this->getNestedChildComments($row);
         }
         return $comments;
     }
 
     /**
-     * @param $id
      * @param $comment
      * Gets nested comments for given comment
      */
-    private function getNestedChildComments($id, $comment)
+    private function getNestedChildComments($comment)
     {
-        $this->db->where('parentComment', $id);
+        $this->db->where('parentComment', $comment->id);
         $query = $this->db->get('comment');
         $comment->childComments = array();
         foreach ($query->result('comment') as $row) {
             $comment->childComments[] = $row;
-            $this->getNestedChildComments($row->id, $row);
+            $this->getNestedChildComments($row);
         }
     }
 }
