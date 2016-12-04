@@ -18,7 +18,7 @@ class CommentController extends CI_Controller
     }
 
     /**
-     *
+     * Main controller for Class
      */
     public function comment()
     {
@@ -42,6 +42,9 @@ class CommentController extends CI_Controller
         }
     }
 
+    /**
+     * Return nested comments for given comment ID
+     */
     private function get()
     {
         $data = array();
@@ -51,11 +54,14 @@ class CommentController extends CI_Controller
 //        echo json_encode($data);
     }
 
+    /**
+     * POST request to insert Level 1 comment
+     */
     private function post()
     {
         $data = file_get_contents("php://input");
         $json = json_decode($data);
-        if($json->user == '' || $json->comment == '' ||($json->post == '' && $json->parentComment == '')){
+        if($json->user == '' || $json->comment == '' || $json->post == '' ){
             echo json_encode(array("error" => "Fields Cannot be empty."));
             return;
         }
@@ -63,6 +69,9 @@ class CommentController extends CI_Controller
         echo json_encode(array("insertedId" => $insertedId));
     }
 
+    /**
+     * POST request to insert reply to given comment
+     */
     public function reply()
     {
         $data = file_get_contents("php://input");
