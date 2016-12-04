@@ -231,6 +231,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             echo "<div class='container'> "
                 . "<div class='form-group .col-md-1'>"
                 . "<h2>$post->description</h2>"
+                . "<p>Original link: <a href='//$post->url' target='_blank'>$post->url</a></p>"
                 . "<p> Submitted by: " . $post->user
                 . " at " . date("d/m/Y H:i:s", (($post->date) / 1000)) . "</p>"
                 . "<p>Likes: <span id='likes$post->id'>$post->likes </span>"
