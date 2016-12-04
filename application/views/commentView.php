@@ -41,6 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             font-weight: normal;
             margin: 0 0 14px 0;
             padding: 14px 15px 10px 15px;
+            cursor: pointer;
         }
 
         code {
@@ -172,6 +173,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 });
             });
 
+            /*
+             * AJAX call when user likes post
+             */
+            $('.likePost').click(function () {
+                var id = parseInt($(this).attr('name'));
+                var count = $('#likes'+id).text();
+                $.ajax({
+                    url: '<?php echo base_url() ?>index.php/postController/likePost',
+                    method: 'POST',
+                    data: 	JSON.stringify({'id': id }),
+                    success: function(data){console.log(data); $('#likes'+id).text(  ++count );},
+                    error: function(data){console.log(data)}
+                });
+            });
+
+            /*
+             * AJAX call when user dislikes post
+             */
+            $('.dislikePost').click(function () {
+                var id = parseInt($(this).attr('name'));
+                var count = $('#dislikes'+id).text();
+                $.ajax({
+                    url: '<?php echo base_url() ?>index.php/postController/dislikePost',
+                    method: 'POST',
+                    data: 	JSON.stringify({'id': id }),
+                    success: function(data){console.log(data); $('#dislikes'+id).text(  ++count );},
+                    error: function(data){console.log("something went wrong" + data)}
+                });
+            });
+
+            /*
+             * Navigate to Previous page when title is clicked
+             */
+            $('h1').click(function () {
+                location.replace(document.referrer);
+            });
+
         }); // END
     </script>
 </head>
@@ -189,9 +227,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 . "<p> Submitted by: " . $post->user
                 . " at " . date("d/m/Y H:i:s", (($post->date) / 1000)) . "</p>"
                 . "<p>Likes: <span id='likes$post->id'>$post->likes </span>"
-                . "<input type='button' name='$post->id' value = 'Like' class='btn btn-success'> "
+                . "<input type='button' name='$post->id' value = 'Like' class='btn btn-success likePost'> "
                 . "Dislikes: <span id='dislikes$post->id'>$post->dislikes"
-                . "</span><input type='button' name='$post->id' value = 'Dislike' class='btn btn-danger'></p>"
+                . "</span><input type='button' name='$post->id' value = 'Dislike' class='btn btn-danger dislikePost'></p>"
                 . "</div></div><br>";
         }
         ?>
