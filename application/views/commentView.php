@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         .container {
             margin: 10px;
-            /*padding: 0 10px 0 10px;*/
+            overflow: hidden;
             border: 1px solid #D0D0D0;
             box-shadow: 0 0 8px #D0D0D0;
         }
@@ -128,12 +128,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 <div class="container">
     <div id="body">
-    <h1>AWT!</h1>
+    <h1>Idea Talk!</h1>
     <div class="eachPost">
         <?php
         if (isset($post)) {
 //            print_r($post);
-            echo "<div class='eachPost'> "
+            echo "<div class='container'> "
                 . "<div class='form-group .col-md-1'>"
                 . "<h2>$post->description</h2>"
                 . "<p> Submitted by: " . $post->user
@@ -147,14 +147,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         ?>
     </div>
 
-    <div class="commentBox form-group">
-        Enter Comment here : <br>
-        <input type="text" placeholder="Username" id="user">
+    <div class="container form-group">
+        <h3> Enter Comment here : </h3><br>
+        <input type="text" placeholder="Username" id="user"> <br><br>
         <textarea id="comment" class="form-control" rows="4" placeholder="Comment"></textarea><br>
-        <button id="enterComment" class="btn btn-primary">Comment</button>
+        <button id="enterComment" class="btn btn-primary">Comment</button> <br><br>
     </div>
 
         <?php
+        echo "<h3>User Comments</h3>";
         if (isset($comments)) {
 
             function printChildComments($childComments)

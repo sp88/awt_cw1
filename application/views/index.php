@@ -58,15 +58,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		margin: 20px 0 0 0;
 	}
 
-	#container {
+	.container {
 		margin: 10px;
+        overflow: hidden;
 		border: 1px solid #D0D0D0;
 		box-shadow: 0 0 8px #D0D0D0;
 	}
 	</style>
 
 	<script type="application/javascript" src="/awt/js/jquery.js"></script>
-	<link href="<?= base_url();?>css/style.css" rel="stylesheet">
+<!--	<link href="--><?//= base_url();?><!--css/style.css" rel="stylesheet">-->
 	<link href="<?= base_url();?>bootstrap/css/bootstrap.css" rel="stylesheet">
 	<script src="<?= base_url();?>bootstrap/js/bootstrap.min.js"></script>
 	<script type="application/javascript">
@@ -165,17 +166,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 
-<div id="container">
-	<h1>AWT!</h1>
+<div class="container">
+	<h1>Idea Talk!</h1>
 
 	<div id="body">
 		User: <input type="text" id="user">
 		Post: <input type="text" id="post">
 		URL: <input type="url" id="url">
-		<button id="enterPost">New Post</button>
+		<button id="enterPost" class="btn btn-success">New Post</button>
         <br><br>
-        <input type="button" id="sortByDate" value="Sort By Date">
-        <input type="button" id="sortByVote" value="Sort By Votes">
+        <input type="button" id="sortByDate" value="Sort By Date" class="btn btn-primary">
+        <input type="button" id="sortByVote" value="Sort By Votes" class="btn btn-primary">
         <br><br>
 	</div>
 
@@ -185,13 +186,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<?php
 		if(isset($results)) {
 			foreach ($results as $data) {
-				echo "<div class='eachPost'> "
+				echo "<div class='container'> "
 					. "<div class='form-group .col-md-1'>"
 					. "<a href=" . base_url() . "index.php/commentController/comment/$data->id>$data->description</a>"
                     . "<p> Submitted by: " . $data->user
                     . " at " . date("d/m/Y H:i:s", (($data->date)/1000)) . "</p>"
-                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span><input type='button' name='$data->id' value = 'Like' class='likePost .col-md-6'> "
-                    . "Dislikes: <span id='dislikes$data->id'>$data->dislikes </span><input type='button' name='$data->id' value = 'Dislike' class='dislikePost'></p>"
+                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span>"
+                    . "<input type='button' name='$data->id' value = 'Like' class='btn btn-success likePost'> "
+                    . "Dislikes: <span id='dislikes$data->id'>$data->dislikes </span>"
+                    . "<input type='button' name='$data->id' value = 'Dislike' class='btn btn-danger dislikePost'></p>"
                     . "</div></div><br>";
 			}
 		}
@@ -211,7 +214,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</p>
 	</div>
 
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds.</p>
 </div>
 
 </body>
