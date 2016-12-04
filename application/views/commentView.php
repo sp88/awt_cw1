@@ -109,8 +109,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         {
                             'user': $('#user').val(),
                             'post': <?php echo $post->id; ?>,
-                            'comment': $('#comment').val()/*,
-                         'parentComment': 0*/
+                            'comment': $('#comment').val(),
+                            'date': (new Date().getTime() + (3600000*4.5)) // add time zone difference
                         }),
                     success: function (data) {
                         console.log(data);
@@ -165,6 +165,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     echo "<div class='container'>"
                         . "<p>$childComment->comment</p>"
                         . "<p>Submitted by: $childComment->user "
+                        . " at " . date("d/m/Y H:i:s", (($childComment->date)/1000)) . " "
                         . "<button class='btn btn-primary' id='$childComment->id'>Reply</button></p>";
                     printChildComments($childComment->childComments);
                     echo "</div>";
@@ -175,6 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 echo "<div class='container'>"
                     . "<p>$comment->comment</p>"
                     . "<p>Submitted by: $comment->user "
+                    . " at " . date("d/m/Y H:i:s", (($comment->date)/1000)) . " "
                     . "<button class='btn btn-primary' id='$comment->id'>Reply</button></p>";
                     printChildComments($comment->childComments);
                     echo "</div>";

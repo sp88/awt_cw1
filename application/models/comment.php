@@ -13,8 +13,7 @@ class Comment extends CI_Model
     public $comment;
     public $post;
     public $parentComment;
-    public $likes;
-    public $dislikes;
+    public $date;
     public $childComments = array();
 
     public function __construct()
