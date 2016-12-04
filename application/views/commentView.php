@@ -209,6 +209,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 location.replace(document.referrer);
             });
 
+            /*
+             * Navigate to Previous page when title is clicked
+             */
+            $('#enterComment').click(function () {
+                location.reload();
+            });
+
+
         }); // END
     </script>
 </head>
