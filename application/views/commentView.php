@@ -116,7 +116,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         /*$('#dislikes'+id).text(  ++count );*/
                     },
                     error: function (data) {
-                        console.log("something went wrong" + data)
+                        console.log("something went wrong" + data);
+                        alert('Something went wrong, Please try again later');
+                        location.reload();
                     }
                 });
             });
@@ -160,10 +162,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }),
                     success: function (data) {
                         console.log(data);
-                        /*$('#dislikes'+id).text(  ++count );*/
+                        location.reload();
                     },
                     error: function (data) {
                         console.log("something went wrong" + data);
+                        alert('Something went wrong, Please try again later');
+                        location.reload();
                     }
                 });
             });
