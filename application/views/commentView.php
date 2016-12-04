@@ -76,7 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </style>
 
     <script type="application/javascript" src="/awt/js/jquery.js"></script>
-    <link href="<?= base_url(); ?>css/style.css" rel="stylesheet">
+<!--    <link href="--><?//= base_url(); ?><!--css/style.css" rel="stylesheet">-->
     <link href="<?= base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="<?= base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
     <script type="application/javascript">
@@ -139,9 +139,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 . "<p> Submitted by: " . $post->user
                 . " at " . date("d/m/Y H:i:s", (($post->date) / 1000)) . "</p>"
                 . "<p>Likes: <span id='likes$post->id'>$post->likes </span>"
-                . "<input type='button' name='$post->id' value = 'Like' class='likePost .col-md-6'> "
+                . "<input type='button' name='$post->id' value = 'Like' class='btn btn-success'> "
                 . "Dislikes: <span id='dislikes$post->id'>$post->dislikes"
-                . "</span><input type='button' name='$post->id' value = 'Dislike' class='dislikePost'></p>"
+                . "</span><input type='button' name='$post->id' value = 'Dislike' class='btn btn-danger'></p>"
                 . "</div></div><br>";
         }
         ?>
@@ -151,7 +151,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         Enter Comment here : <br>
         <input type="text" placeholder="Username" id="user">
         <textarea id="comment" class="form-control" rows="4" placeholder="Comment"></textarea><br>
-        <button id="enterComment" value="">Comment</button>
+        <button id="enterComment" class="btn btn-primary">Comment</button>
     </div>
 
         <?php
@@ -163,7 +163,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 {
                     echo "<div class='container'>"
                         . "<p>$childComment->comment</p>"
-                        . "<p>Submitted by: $childComment->user</p>";
+                        . "<p>Submitted by: $childComment->user "
+                        . "<button class='btn btn-primary' id='$childComment->id'>Reply</button></p>";
                     printChildComments($childComment->childComments);
                     echo "</div>";
                 }
@@ -172,7 +173,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             foreach ($comments as $comment) {
                 echo "<div class='container'>"
                     . "<p>$comment->comment</p>"
-                    . "<p>Submitted by: $comment->user</p>";
+                    . "<p>Submitted by: $comment->user "
+                    . "<button class='btn btn-primary' id='$comment->id'>Reply</button></p>";
                     printChildComments($comment->childComments);
                     echo "</div>";
             }
