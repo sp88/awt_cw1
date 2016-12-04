@@ -35,7 +35,7 @@ class Post extends CI_Model
             foreach ($query->result('post') as $row){
                 $results[] = $row;
             }
-            return $results;
+            return $results[0];
         }
         return false;
     }

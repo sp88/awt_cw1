@@ -107,9 +107,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     data: 	JSON.stringify(
                         {
                             'user' : $('#user').val(),
-                            'post': <?php echo $id; ?>,
-                            'comment': $('#comment').val(),
-                            'parentComment': 0
+                            'post': <?php echo $post->id; ?>,
+                            'comment': $('#comment').val()/*,
+                            'parentComment': 0*/
                         }),
                     success: function(data){console.log(data); /*$('#dislikes'+id).text(  ++count );*/},
                     error: function(data){console.log("something went wrong" + data)}
@@ -126,19 +126,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <?php
         if (isset($post)) {
 //            print_r($post);
-            foreach ($post as $data) {
-                $GLOBALS['postId'] = $data->id;
+//            foreach ($post as $data) {
                 echo "<div class='eachPost'> "
                     . "<div class='form-group .col-md-1'>"
-                    . "<h2>$data->description</h2>"
-                    . "<p> Submitted by: " . $data->user
-                    . " at " . date("d/m/Y H:i:s", (($data->date)/1000)) . "</p>"
-                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span>"
-                    . "<input type='button' name='$data->id' value = 'Like' class='likePost .col-md-6'> "
-                    . "Dislikes: <span id='dislikes$data->id'>$data->dislikes"
-                    . "</span><input type='button' name='$data->id' value = 'Dislike' class='dislikePost'></p>"
+                    . "<h2>$post->description</h2>"
+                    . "<p> Submitted by: " . $post->user
+                    . " at " . date("d/m/Y H:i:s", (($post->date)/1000)) . "</p>"
+                    . "<p>Likes: <span id='likes$post->id'>$post->likes </span>"
+                    . "<input type='button' name='$post->id' value = 'Like' class='likePost .col-md-6'> "
+                    . "Dislikes: <span id='dislikes$post->id'>$post->dislikes"
+                    . "</span><input type='button' name='$post->id' value = 'Dislike' class='dislikePost'></p>"
                     . "</div></div><br>";
-            }
+//            }
         }
         ?>
     </div>
@@ -154,6 +153,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     </div>
 
+    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
 </body>
 </html>
