@@ -206,12 +206,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				echo $links;
 			}
 			?>
-<!--		<div class="form-group">-->
-<!--			<label for="firstName" class="col-lg-3 control-label">First Name</label>-->
-<!--			<div class="col-lg-6">-->
-<!--				<input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name">-->
-<!--			</div>-->
-<!--		</div>-->
 		</p>
 	</div>
 

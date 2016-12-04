@@ -32,13 +32,7 @@ class CommentController extends CI_Controller
             case 'POST' :
                 $this->post();
                 break;
-            case 'PUT':
-                $this->put();
-                break;
 
-            case 'DELETE':
-                $this->delete();
-                break;
         }
     }
 

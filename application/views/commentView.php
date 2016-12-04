@@ -77,7 +77,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </style>
 
     <script type="application/javascript" src="/awt/js/jquery.js"></script>
-<!--    <link href="--><?//= base_url(); ?><!--css/style.css" rel="stylesheet">-->
     <link href="<?= base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="<?= base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
     <script type="application/javascript">

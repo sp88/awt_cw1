@@ -36,13 +36,6 @@ class postController extends CI_Controller
                 $this->postPost($json);
                 break;
 
-//            case 'PUT':
-//                $this->put();
-//                break;
-
-            case 'DELETE':
-                $this->delete();
-                break;
         }
     }
 
@@ -106,11 +99,6 @@ class postController extends CI_Controller
         echo $this->db->insert('post', $post);
     }
 
-    private function delete()
-    {
-        $id = $this->input->delete('id');
-        $this->db->delete('post', array('id' => $id));
-    }
 
     /**
      * Send data to like a specific post

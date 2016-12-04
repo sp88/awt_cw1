@@ -40,10 +40,10 @@ class Post extends CI_Model
         return false;
     }
 
-    public function getEntryPage($limit, $offset){
-
-    }
-
+    /**
+     * @param $id
+     * Save Like in DB for given Post
+     */
     public function likePost($id)
     {
         // prevent data from being escaped by FALSE parameter
@@ -53,6 +53,10 @@ class Post extends CI_Model
         echo $result;
     }
 
+    /**
+     * @param $id
+     * Save Dislike in DB for given Post
+     */
     public function dislikePost($id)
     {
         // prevent data from being escaped by FALSE parameter
