@@ -67,8 +67,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             margin: 20px 0 0 0;
         }
 
-        #container {
+        .container {
             margin: 10px;
+            /*padding: 0 10px 0 10px;*/
             border: 1px solid #D0D0D0;
             box-shadow: 0 0 8px #D0D0D0;
         }
@@ -85,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              * Validate entered fields
              */
             function validateCommentData() {
-                if($('#user').val() == '' || $('#comment').val() == ''){
+                if ($('#user').val() == '' || $('#comment').val() == '') {
                     return false;
                 }
                 return true;
@@ -95,7 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              * Add entered comment to DB
              */
             $('#enterComment').click(function () {
-                if(!validateCommentData()){
+                if (!validateCommentData()) {
                     alert('All fields must be filled');
                     return;
                 }
@@ -104,15 +105,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $.ajax({
                     url: '<?php echo base_url() ?>index.php/commentController/comment',
                     method: 'POST',
-                    data: 	JSON.stringify(
+                    data: JSON.stringify(
                         {
-                            'user' : $('#user').val(),
+                            'user': $('#user').val(),
                             'post': <?php echo $post->id; ?>,
                             'comment': $('#comment').val()/*,
-                            'parentComment': 0*/
+                         'parentComment': 0*/
                         }),
-                    success: function(data){console.log(data); /*$('#dislikes'+id).text(  ++count );*/},
-                    error: function(data){console.log("something went wrong" + data)}
+                    success: function (data) {
+                        console.log(data);
+                        /*$('#dislikes'+id).text(  ++count );*/
+                    },
+                    error: function (data) {
+                        console.log("something went wrong" + data)
+                    }
                 });
             });
 
@@ -120,24 +126,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 </head>
 <body>
-<div id="container">
+<div class="container">
+    <div id="body">
     <h1>AWT!</h1>
     <div class="eachPost">
         <?php
         if (isset($post)) {
 //            print_r($post);
-//            foreach ($post as $data) {
-                echo "<div class='eachPost'> "
-                    . "<div class='form-group .col-md-1'>"
-                    . "<h2>$post->description</h2>"
-                    . "<p> Submitted by: " . $post->user
-                    . " at " . date("d/m/Y H:i:s", (($post->date)/1000)) . "</p>"
-                    . "<p>Likes: <span id='likes$post->id'>$post->likes </span>"
-                    . "<input type='button' name='$post->id' value = 'Like' class='likePost .col-md-6'> "
-                    . "Dislikes: <span id='dislikes$post->id'>$post->dislikes"
-                    . "</span><input type='button' name='$post->id' value = 'Dislike' class='dislikePost'></p>"
-                    . "</div></div><br>";
-//            }
+            echo "<div class='eachPost'> "
+                . "<div class='form-group .col-md-1'>"
+                . "<h2>$post->description</h2>"
+                . "<p> Submitted by: " . $post->user
+                . " at " . date("d/m/Y H:i:s", (($post->date) / 1000)) . "</p>"
+                . "<p>Likes: <span id='likes$post->id'>$post->likes </span>"
+                . "<input type='button' name='$post->id' value = 'Like' class='likePost .col-md-6'> "
+                . "Dislikes: <span id='dislikes$post->id'>$post->dislikes"
+                . "</span><input type='button' name='$post->id' value = 'Dislike' class='dislikePost'></p>"
+                . "</div></div><br>";
         }
         ?>
     </div>
@@ -149,11 +154,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <button id="enterComment" value="">Comment</button>
     </div>
 
-    <div class="allComments">
+        <?php
+        if (isset($comments)) {
 
+            function printChildComments($childComments)
+            {
+                foreach ($childComments as $childComment)
+                {
+                    echo "<div class='container'>"
+                        . "<p>$childComment->comment</p>"
+                        . "<p>Submitted by: $childComment->user</p>";
+                    printChildComments($childComment->childComments);
+                    echo "</div>";
+                }
+            }
+
+            foreach ($comments as $comment) {
+                echo "<div class='container'>"
+                    . "<p>$comment->comment</p>"
+                    . "<p>Submitted by: $comment->user</p>";
+                    printChildComments($comment->childComments);
+                    echo "</div>";
+            }
+        }
+        ?>
     </div>
 
-    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. </p>
 </div>
 </body>
 </html>
