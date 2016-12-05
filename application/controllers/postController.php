@@ -6,7 +6,7 @@
  * Date: 18-11-2016
  * Time: 00:56
  */
-class postController extends CI_Controller
+class PostController extends CI_Controller
 {
     public function __construct()
     {
