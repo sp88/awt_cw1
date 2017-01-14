@@ -78,21 +78,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script type="application/javascript" src="/awt/js/underscore-min.js"></script>
     <script type="application/javascript" src="/awt/js/json2.js"></script>
     <script type="application/javascript" src="/awt/js/backbone-min.js"></script>
-    <link href="/awt/css/style.css" rel="stylesheet">
+    <!--	<link href="--><? //= base_url();?><!--css/style.css" rel="stylesheet">-->
     <link href="<?= base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="<?= base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
-    <script type="application/javascript" src="/awt/js/indexFunctions.js"></script>
+
+    <script type="application/javascript">
+        $(document).ready(function () {
+
+        }
+    </script>
 </head>
 <body>
 <div class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" href="#">Idea Talk!</a>
+        <a class="navbar-brand" href="/awt/">Idea Talk!</a>
 
         <?php
         if ($this->session->userdata('logged_in')) {
             echo "<ul class='nav navbar-nav navbar-right'>" .
+                "<li>" .
                 "<li><a class='btn' href='#'>Welcome " . $this->session->userdata('username') . "! </a></li>" .
-                "<li><a class='btn btn-launch' href='/awt/index.php/userController/visitProfile'>Visit Profile</a>" .
+                "<li><a class='btn' href='/awt/index.php/userController/visitProfile'>Visit Profile</a>" .
                 "</li>" .
                 "<li><a class='btn btn-launch' href='/awt/index.php/userController/logout'>Logout</a></li>" .
                 "</ul>";
@@ -107,50 +113,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </div>
 <div class="container">
-
-    <?php $this->view('loginModal'); ?>
-    <div id="body">
-        <br><br>
-        User: <input type="text" id="user">
-        Post: <input type="text" id="post">
-        URL: <input type="url" id="url">
-        <button id="enterPost" class="btn btn-success">New Post</button>
-        <br><br>
-        <input type="button" id="sortByDate" value="Sort By Date" class="btn btn-primary">
-        <input type="button" id="sortByVote" value="Sort By Votes" class="btn btn-primary">
-        <br><br>
-    </div>
-
-    <div id="test"></div>
-
-    <div id="posts" class="posts">
-        <?php
-        if (isset($results)) {
-            foreach ($results as $data) {
-                echo "<div class='container'> "
-                    . "<div class='form-group .col-md-1'>"
-                    . "<a href=" . base_url() . "index.php/commentController/comment/$data->id>$data->description</a>"
-                    . "<p> Submitted by: " . $data->user
-                    . " at " . date("d/m/Y H:i:s", (($data->date) / 1000)) . "</p>"
-                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span>"
-                    . "<input type='button' name='$data->id' value = 'Like' class='btn btn-success likePost'> "
-                    . "Dislikes: <span id='dislikes$data->id'>$data->dislikes </span>"
-                    . "<input type='button' name='$data->id' value = 'Dislike' class='btn btn-danger dislikePost'></p>"
-                    . "</div></div><br>";
-            }
-        }
-        ?>
-        <p class="links">
-            <?php
-            if (isset($links)) {
-                echo $links;
-            }
-            ?>
-        </p>
-    </div>
+    This is the profile!! Welcome
 
     <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds.</p>
 </div>
-
 </body>
 </html>
