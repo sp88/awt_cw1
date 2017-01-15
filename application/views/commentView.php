@@ -77,8 +77,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </style>
 
     <script type="application/javascript" src="/awt/js/jquery.js"></script>
+    <script type="application/javascript" src="/awt/js/underscore-min.js"></script>
+    <script type="application/javascript" src="/awt/js/json2.js"></script>
+    <script type="application/javascript" src="/awt/js/backbone-min.js"></script>
+    <link href="/awt/css/style.css" rel="stylesheet">
     <link href="<?= base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="<?= base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="/awt/js/indexFunctions.js"></script>
     <script type="application/javascript">
         $(document).ready(function () {
 
@@ -155,7 +160,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     method: 'POST',
                     data: JSON.stringify(
                         {
-                            'user': $('#userInput'+id).val(),
+//                            'user': $('#userInput'+id).val(),
                             'comment': $('#userReply'+id).val(),
                             'parentComment':id,
                             'date': (new Date().getTime() + (3600000*4.5)) // add time zone difference
@@ -221,9 +226,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 </head>
 <body>
+<div id="topNav"> <?php $this->view('navBar'); ?> </div>
 <div class="container">
     <div id="body">
-    <h1>Idea Talk!</h1>
     <div class="eachPost">
         <?php
         if (isset($post)) {
@@ -235,9 +240,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 . "<p> Submitted by: " . $post->user
                 . " at " . date("d/m/Y H:i:s", (($post->date) / 1000)) . "</p>"
                 . "<p>Likes: <span id='likes$post->id'>$post->likes </span>"
-                . "<input type='button' name='$post->id' value = 'Like' class='btn btn-success likePost'> "
+                . "<input type='button' name='$post->id' value = 'Like' class='btn btn-success likePost' disabled> "
                 . "Dislikes: <span id='dislikes$post->id'>$post->dislikes"
-                . "</span><input type='button' name='$post->id' value = 'Dislike' class='btn btn-danger dislikePost'></p>"
+                . "</span><input type='button' name='$post->id' value = 'Dislike' class='btn btn-danger dislikePost' disabled></p>"
                 . "</div></div><br>";
         }
         ?>
@@ -245,9 +250,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <div class="container form-group">
         <h3> Enter Comment here : </h3><br>
-        <input type="text" placeholder="Username" id="user"> <br><br>
+<!--        <input type="text" placeholder="Username" id="user"> <br><br>-->
         <textarea id="comment" class="form-control" rows="4" placeholder="Comment"></textarea><br>
-        <button id="enterComment" class="btn btn-primary">Comment</button> <br><br>
+        <button id="enterComment" class="btn btn-primary" disabled>Comment</button> <br><br>
     </div>
 
         <?php

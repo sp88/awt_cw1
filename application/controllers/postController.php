@@ -13,6 +13,7 @@ class PostController extends CI_Controller
         parent::__construct();
         $this->load->helper("url");
         $this->load->model('post');
+        $this->load->model('user');
         $this->load->library('pagination');
         $this->load->database();
     }
@@ -45,6 +46,10 @@ class PostController extends CI_Controller
     private function get($sort)
     {
         $data = $this->post->getList($sort);
+        foreach ($data['results'] as $row){
+            $user = $this->user->getUser($row->user);
+            $row->user = $user->username;
+        }
         $this->load->view("index", $data);
     }
 
@@ -56,14 +61,14 @@ class PostController extends CI_Controller
     private function postPost($data)
     {
         // validate whether values for all fields are present
-        if($data->date == '' || $data->description == '' || $data->url == '' || $data->user == ''){
+        if($data->date == '' || $data->description == '' || $data->url == ''){
             echo json_encode(array('error'=>'Date/Description/Data/User cannot be empty for Post entered.'));
             return;
         }
 
         // if necessary data are present, save in DB
         $post = array('id'=>$data->id, 'date'=> $data->date, 'description'=>$data->description,
-            'url'=>$data->url, 'user'=>$data->user);
+            'url'=>$data->url, 'user'=>$this->session->userdata('id'));
         echo $this->db->insert('post', $post);
     }
 

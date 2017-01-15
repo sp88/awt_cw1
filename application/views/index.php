@@ -91,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php $this->view('loginModal'); ?>
     <div id="body">
         <br><br>
-        User: <input type="text" id="user">
+<!--        User: <input type="text" id="user">-->
         Post: <input type="text" id="post">
         URL: <input type="url" id="url">
         <?php

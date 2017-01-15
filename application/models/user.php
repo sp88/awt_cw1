@@ -4,6 +4,7 @@ class User extends CI_Model
 {
     public $id;
     public $username;
+    public $email;
     public $password;
 
     public function __construct()
@@ -57,6 +58,20 @@ class User extends CI_Model
         {
             return FALSE;
         }
+    }
+
+    function getUser($id)
+    {
+        $query = $this->db->get_where('users', array('id'=>$id));
+        if ( $query->num_rows() == 1 )
+        {
+            $results = array();
+            foreach ($query->result('user') as $row){
+                $results[] = $row;
+            }
+            return $results[0];
+        }
+        return false;
     }
 
 

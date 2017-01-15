@@ -49,8 +49,7 @@ $(document).ready(function () {
                 'id': null,
                 'date': (new Date().getTime() + (3600000 * 4.5)), // add time zone difference
                 'description': $('#post').val(),
-                'url': $('#url').val(),
-                'user': $('#user').val()
+                'url': $('#url').val()
             })
         }).done(function (data) {
             if (data.error) {
