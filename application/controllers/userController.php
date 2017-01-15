@@ -55,7 +55,7 @@ class UserController extends CI_Controller
             unset($data['password']);
             $data['logged_in'] = TRUE;
             $this->session->set_userdata($data);
-            echo json_encode($data);
+            echo $this->load->view('navBar','',TRUE);
         }
     }
 

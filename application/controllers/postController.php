@@ -44,46 +44,10 @@ class PostController extends CI_Controller
      */
     private function get($sort)
     {
-
-        $config = array();
-        $config["base_url"] = base_url() . "/index.php/postController/post";
-        $config["total_rows"] = $this->record_count();
-        $config["per_page"] = 20;
-        $config["uri_segment"] = 3;
-        $config["prev_link"] = 'Previous';
-        $config["next_link"] = 'Next';
-//        $config['full_tag_open'] = '<ul class="pagination" id="search_page_pagination">';
-//        $config['full_tag_close'] = '</ul>';
-
-        $this->pagination->initialize($config);
-
-        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-        if($sort == 'date'){
-            $this->db->order_by('date', 'ASC');
-        } else if ($sort == 'vote') {
-            $this->db->order_by('likes', 'DESC');
-        } else {
-            $this->db->order_by('date', 'DESC');
-        }
-        $query = $this->db->get('post', $config["per_page"], $page);
-        $results = array();
-        foreach ($query->result() as $row){
-            $results[] = $row;
-        }
-        $data["results"] = $results;
-        $data["links"] = $this->pagination->create_links();
-
+        $data = $this->post->getList($sort);
         $this->load->view("index", $data);
     }
 
-//    private retr
-
-    /**
-     * @return mixed
-     */
-    private function record_count() {
-        return $this->db->count_all("Post");
-    }
 
     /**
      * @param $data

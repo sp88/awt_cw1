@@ -22,6 +22,39 @@ class Post extends CI_Model
         $this->load->database();
     }
 
+    public function getList($sort)
+    {
+        $config = array();
+        $config["base_url"] = base_url() . "/index.php/postController/post";
+        $config["total_rows"] = $this->record_count();
+        $config["per_page"] = 20;
+        $config["uri_segment"] = 3;
+        $config["prev_link"] = 'Previous';
+        $config["next_link"] = 'Next';
+//        $config['full_tag_open'] = '<ul class="pagination" id="search_page_pagination">';
+//        $config['full_tag_close'] = '</ul>';
+
+        $this->pagination->initialize($config);
+
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        if($sort == 'date'){
+            $this->db->order_by('date', 'ASC');
+        } else if ($sort == 'vote') {
+            $this->db->order_by('likes', 'DESC');
+        } else {
+            $this->db->order_by('date', 'DESC');
+        }
+        $query = $this->db->get('post', $config["per_page"], $page);
+        $results = array();
+        foreach ($query->result() as $row){
+            $results[] = $row;
+        }
+        $data["results"] = $results;
+        $data["links"] = $this->pagination->create_links();
+
+        return $data;
+    }
+
     public function insertEntry($data){
         $this->db->insert('post', $data);
     }
@@ -64,6 +97,13 @@ class Post extends CI_Model
         $this->db->where('id', $id);
         $result = $this->db->update('post');
         echo $result;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function record_count() {
+        return $this->db->count_all("Post");
     }
 
 }

@@ -57,6 +57,9 @@ $(document).ready(function () {
                 alert(data.error);
             } else {
                 location.reload();
+                $('.likePost').prop('disabled', false);
+                $('.dislikePost').prop('disabled', false);
+                $('#enterPost').prop('disabled', false);
                 console.log('Inserted: ' + data + ' Post.');
             }
         });
@@ -135,6 +138,12 @@ $(document).ready(function () {
             data: JSON.stringify({'username': username, 'email': email, 'password': password}),
             success: function (data) {
                 $("#closeModalBTN").click();
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                $('#topNav').html(data);
+                $('.likePost').prop('disabled', false);
+                $('.dislikePost').prop('disabled', false);
+                $('#enterPost').prop('disabled', false);
             },
             error: function (data) {
                 console.log(data);
@@ -148,6 +157,10 @@ $(document).ready(function () {
 
 }); // END
 
+
+/**
+ * Get user entered inputs and validate user via AJAX
+ */
 function login() {
     var username = $('#login_username').val();
     var password = $('#password').val();
@@ -162,6 +175,9 @@ function login() {
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
             $('#topNav').html(data);
+            $('.likePost').prop('disabled', false);
+            $('.dislikePost').prop('disabled', false);
+            $('#enterPost').prop('disabled', false);
         },
         error: function (data) {
             console.log(data);
@@ -169,6 +185,9 @@ function login() {
     });
 }
 
+/**
+ * Logout user from the system
+ */
 function logout() {
     $.ajax({
         url: '/awt/index.php/logout',
@@ -176,9 +195,13 @@ function logout() {
         success: function (data) {
             console.log("logout");
             $('#topNav').html(data);
+            $('.likePost').prop('disabled', true);
+            $('.dislikePost').prop('disabled', true);
+            $('#enterPost').prop('disabled', true);
         },
         error: function (data) {
             console.log(data);
         }
     });
 }
+
