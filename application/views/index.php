@@ -94,7 +94,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         User: <input type="text" id="user">
         Post: <input type="text" id="post">
         URL: <input type="url" id="url">
-        <button id="enterPost" class="btn btn-success">New Post</button>
+        <?php
+            echo "<button id='enterPost' class='btn btn-success' ";
+            if($this->session->userdata('logged_in') == 0){
+                echo "disabled='1'";
+            }
+            echo ">New Post</button>";
+        ?>
         <br><br>
         <input type="button" id="sortByDate" value="Sort By Date" class="btn btn-primary">
         <input type="button" id="sortByVote" value="Sort By Votes" class="btn btn-primary">
@@ -112,11 +118,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     . "<a href=" . base_url() . "index.php/commentController/comment/$data->id>$data->description</a>"
                     . "<p> Submitted by: " . $data->user
                     . " at " . date("d/m/Y H:i:s", (($data->date) / 1000)) . "</p>"
-                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span>"
-                    . "<input type='button' name='$data->id' value = 'Like' class='btn btn-success likePost'> "
-                    . "Dislikes: <span id='dislikes$data->id'>$data->dislikes </span>"
-                    . "<input type='button' name='$data->id' value = 'Dislike' class='btn btn-danger dislikePost'></p>"
-                    . "</div></div><br>";
+                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span>";
+
+                echo "<input type='button' name='$data->id' value = 'Like' class='btn btn-success likePost' ";
+                if ($this->session->userdata('logged_in') == 0) {
+                    echo "disabled='1'";
+                }
+                echo ">";
+
+//                    . "<input type='button' name='$data->id' value = 'Like' class='btn btn-success likePost' disabled='"
+//                    . ($this->session->userdata('logged_in') != true). "'>"
+
+                echo " Dislikes: <span id='dislikes$data->id'>$data->dislikes </span>";
+
+                echo "<input type='button' name='$data->id' value = 'Dislike' class='btn btn-danger dislikePost' ";
+                if ($this->session->userdata('logged_in') == 0) {
+                    echo "disabled='1'";
+                }
+                echo "></div></div><br>";
+//                    . " disabled='"
+//                    . ($this->session->userdata('logged_in') != true). "'>"
+//                    . "";
             }
         }
         ?>

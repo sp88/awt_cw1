@@ -59,9 +59,11 @@ class PostController extends CI_Controller
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         if($sort == 'date'){
-            $this->db->order_by('date', 'DESC');
+            $this->db->order_by('date', 'ASC');
         } else if ($sort == 'vote') {
             $this->db->order_by('likes', 'DESC');
+        } else {
+            $this->db->order_by('date', 'DESC');
         }
         $query = $this->db->get('post', $config["per_page"], $page);
         $results = array();
@@ -73,6 +75,8 @@ class PostController extends CI_Controller
 
         $this->load->view("index", $data);
     }
+
+//    private retr
 
     /**
      * @return mixed
