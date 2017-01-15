@@ -81,6 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="/awt/css/style.css" rel="stylesheet">
     <link href="<?= base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="<?= base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="/awt/js/indexFunctions.js"></script>
 
     <script type="application/javascript">
         $(document).ready(function () {
