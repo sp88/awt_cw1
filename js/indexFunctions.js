@@ -69,17 +69,20 @@ $(document).ready(function () {
      */
     $('.likePost').click(function () {
         var id = parseInt($(this).attr('name'));
-        var count = $('#likes' + id).text();
-        $.ajax({
-            url: '/awt/index.php/postController/likePost',
-            method: 'POST',
-            data: JSON.stringify({'id': id}),
-            success: function (data) {
-                console.log(data);
-                $('#likes' + id).text(++count);
+
+        var votepost = new VotePostModel({
+            user: '',
+            post: id,
+            vote: 1
+        });
+        votepost.save({}, {
+            success: function (model, response, options) {
+                // console.log("ok: " + response.likes + " "+ response.dislikes);
+                $('#likes' + id).text(response.likes);
+                $('#dislikes' + id).text(response.dislikes);
             },
-            error: function (data) {
-                console.log(data)
+            error: function (model, xhr, options) {
+                console.log("no");
             }
         });
     });
@@ -89,17 +92,20 @@ $(document).ready(function () {
      */
     $('.dislikePost').click(function () {
         var id = parseInt($(this).attr('name'));
-        var count = $('#dislikes' + id).text();
-        $.ajax({
-            url: '/awt/index.php/postController/dislikePost',
-            method: 'POST',
-            data: JSON.stringify({'id': id}),
-            success: function (data) {
-                console.log(data);
-                $('#dislikes' + id).text(++count);
+
+        var votepost = new VotePostModel({
+            user: '',
+            post: id,
+            vote: 0
+        });
+        votepost.save({}, {
+            success: function (model, response, options) {
+                // console.log("ok: " + response.likes + " "+ response.dislikes);
+                $('#likes' + id).text(response.likes);
+                $('#dislikes' + id).text(response.dislikes);
             },
-            error: function (data) {
-                console.log("something went wrong" + data)
+            error: function (model, xhr, options) {
+                console.log("no");
             }
         });
     });
@@ -207,3 +213,17 @@ function logout() {
     });
 }
 
+/**
+ * Backbone Model
+ * @type {any}
+ */
+var VotePostModel = Backbone.Model.extend({
+    urlRoot: '/awt/index.php/votePost',
+    defaults: {
+        user: '',
+        post: '',
+        vote: '',
+        likes: '',
+        dislikes: ''
+    }
+});

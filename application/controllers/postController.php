@@ -14,6 +14,7 @@ class PostController extends CI_Controller
         $this->load->helper("url");
         $this->load->model('post');
         $this->load->model('user');
+        $this->load->model('votePost');
         $this->load->library('pagination');
         $this->load->database();
     }
@@ -49,8 +50,14 @@ class PostController extends CI_Controller
         foreach ($data['results'] as $row){
             $user = $this->user->getUser($row->user);
             $row->user = $user->username;
+            $likes = $this->votePost->getLikes($row->id);
+            $row->likes = $likes;
+            $dislikes = $this->votePost->getDisLikes($row->id);
+            $row->dislikes = $dislikes;
         }
         $this->load->view("index", $data);
+//        print_r($row);
+//        echo "row: ". $row->id . " ".$this->votePost->getDisLikes($row->id);
     }
 
 

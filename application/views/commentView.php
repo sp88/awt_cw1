@@ -177,42 +177,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 });
             });
 
-            /*
-             * AJAX call when user likes post
-             */
-            $('.likePost').click(function () {
-                var id = parseInt($(this).attr('name'));
-                var count = $('#likes'+id).text();
-                $.ajax({
-                    url: '<?php echo base_url() ?>index.php/postController/likePost',
-                    method: 'POST',
-                    data: 	JSON.stringify({'id': id }),
-                    success: function(data){console.log(data); $('#likes'+id).text(  ++count );},
-                    error: function(data){console.log(data)}
-                });
-            });
-
-            /*
-             * AJAX call when user dislikes post
-             */
-            $('.dislikePost').click(function () {
-                var id = parseInt($(this).attr('name'));
-                var count = $('#dislikes'+id).text();
-                $.ajax({
-                    url: '<?php echo base_url() ?>index.php/postController/dislikePost',
-                    method: 'POST',
-                    data: 	JSON.stringify({'id': id }),
-                    success: function(data){console.log(data); $('#dislikes'+id).text(  ++count );},
-                    error: function(data){console.log("something went wrong" + data)}
-                });
-            });
-
-            /*
-             * Navigate to Previous page when title is clicked
-             */
-            $('h1').click(function () {
-                location.replace(document.referrer);
-            });
 
             /*
              * Navigate to Previous page when title is clicked

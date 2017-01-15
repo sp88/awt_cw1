@@ -19,6 +19,7 @@ class Post extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('votePost');
         $this->load->database();
     }
 
@@ -68,36 +69,39 @@ class Post extends CI_Model
             foreach ($query->result('post') as $row){
                 $results[] = $row;
             }
-            return $results[0];
+            $post = $results[0];
+            $post->likes = $this->votePost->getLikes($post->id);
+            $post->dislikes = $this->votePost->getDisLikes($post->id);
+            return $post;
         }
         return false;
     }
 
-    /**
-     * @param $id
-     * Save Like in DB for given Post
-     */
-    public function likePost($id)
-    {
-        // prevent data from being escaped by FALSE parameter
-        $this->db->set('likes', 'likes+1', FALSE);
-        $this->db->where('id', $id);
-        $result = $this->db->update('post');
-        echo $result;
-    }
-
-    /**
-     * @param $id
-     * Save Dislike in DB for given Post
-     */
-    public function dislikePost($id)
-    {
-        // prevent data from being escaped by FALSE parameter
-        $this->db->set('dislikes', 'dislikes+1', FALSE);
-        $this->db->where('id', $id);
-        $result = $this->db->update('post');
-        echo $result;
-    }
+//    /**
+//     * @param $id
+//     * Save Like in DB for given Post
+//     */
+//    public function likePost($id)
+//    {
+//        // prevent data from being escaped by FALSE parameter
+//        $this->db->set('likes', 'likes+1', FALSE);
+//        $this->db->where('id', $id);
+//        $result = $this->db->update('post');
+//        echo $result;
+//    }
+//
+//    /**
+//     * @param $id
+//     * Save Dislike in DB for given Post
+//     */
+//    public function dislikePost($id)
+//    {
+//        // prevent data from being escaped by FALSE parameter
+//        $this->db->set('dislikes', 'dislikes+1', FALSE);
+//        $this->db->where('id', $id);
+//        $result = $this->db->update('post');
+//        echo $result;
+//    }
 
     /**
      * @return mixed

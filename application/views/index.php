@@ -82,6 +82,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?= base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="<?= base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/awt/js/indexFunctions.js"></script>
+
+    <script type="application/javascript">
+
+    </script>
 </head>
 <body>
 
@@ -118,7 +122,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     . "<a href=" . base_url() . "index.php/commentController/comment/$data->id>$data->description</a>"
                     . "<p> Submitted by: " . $data->user
                     . " at " . date("d/m/Y H:i:s", (($data->date) / 1000)) . "</p>"
-                    . "<p>Likes: <span id='likes$data->id'>$data->likes </span>";
+                    . "<p>Likes: <span id='likes$data->id'> $data->likes </span>";
 
                 echo "<input type='button' name='$data->id' value = 'Like' class='btn btn-success likePost' ";
                 if ($this->session->userdata('logged_in') == 0) {
@@ -129,7 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //                    . "<input type='button' name='$data->id' value = 'Like' class='btn btn-success likePost' disabled='"
 //                    . ($this->session->userdata('logged_in') != true). "'>"
 
-                echo " Dislikes: <span id='dislikes$data->id'>$data->dislikes </span>";
+                echo " Dislikes: <span id='dislikes$data->id'> $data->dislikes </span>";
 
                 echo "<input type='button' name='$data->id' value = 'Dislike' class='btn btn-danger dislikePost' ";
                 if ($this->session->userdata('logged_in') == 0) {
