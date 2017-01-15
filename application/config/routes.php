@@ -56,6 +56,12 @@ $route['profile'] = 'userController/visitProfile';
 $route['logout'] = 'userController/logout';
 $route['login']['POST'] = 'userController/login';
 
+$route['votePost/(:num)']['DELETE'] = 'votePostController/deleteVotePost/$1';
+$route['votePost/(:num)'] = 'votePostController/getVotePost/$1';
+$route['votePost']['POST'] = 'votePostController/postVotePost';
+$route['votePost/(:num)/(:num)']['PUT'] = 'votePostController/updateVotePost/$1/$2';
+
+
 $route['default_controller'] = 'postController/post';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
