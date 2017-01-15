@@ -14,6 +14,7 @@ class CommentController extends CI_Controller
         $this->load->helper("url");
         $this->load->model('comment');
         $this->load->model('post');
+        $this->load->model('user');
         $this->load->database();
     }
 
@@ -42,10 +43,14 @@ class CommentController extends CI_Controller
     private function get()
     {
         $data = array();
-        $data["post"] = $this->post->getPost($this->uri->segment(3));
+        $thepost = $this->post->getPost($this->uri->segment(3));
+        $user = $this->user->getUser($thepost->user);
+        $thepost->user = $user->username;
+        $data["post"] = $thepost;
         $data["comments"] = $this->comment->getNestedComments($this->uri->segment(3));
         $this->load->view('commentView', $data);
 //        echo json_encode($data);
+//        print_r($thepost);
     }
 
     /**

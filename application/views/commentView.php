@@ -111,13 +111,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     method: 'POST',
                     data: JSON.stringify(
                         {
-                            'user': $('#user').val(),
                             'post': <?php echo $post->id; ?>,
                             'comment': $('#comment').val(),
                             'date': (new Date().getTime() + (3600000*4.5)) // add time zone difference
                         }),
                     success: function (data) {
                         console.log(data);
+                        location.reload();
                         /*$('#dislikes'+id).text(  ++count );*/
                     },
                     error: function (data) {
