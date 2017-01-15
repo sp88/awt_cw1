@@ -228,6 +228,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 <div id="topNav"> <?php $this->view('navBar'); ?> </div>
 <div class="container">
+    <?php $this->view('loginModal'); ?>
     <div id="body">
     <div class="eachPost">
         <?php
@@ -239,11 +240,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 . "<p>Original link: <a href='//$post->url' target='_blank'>$post->url</a></p>"
                 . "<p> Submitted by: " . $post->user
                 . " at " . date("d/m/Y H:i:s", (($post->date) / 1000)) . "</p>"
-                . "<p>Likes: <span id='likes$post->id'>$post->likes </span>"
-                . "<input type='button' name='$post->id' value = 'Like' class='btn btn-success likePost' disabled> "
-                . "Dislikes: <span id='dislikes$post->id'>$post->dislikes"
-                . "</span><input type='button' name='$post->id' value = 'Dislike' class='btn btn-danger dislikePost' disabled></p>"
-                . "</div></div><br>";
+                . "<p>Likes: <span id='likes$post->id'>$post->likes </span>";
+
+            echo "<input type='button' name='$post->id' value = 'Like' class='btn btn-success likePost' ";
+
+            if($this->session->userdata('logged_in') == 0){
+                echo "disabled='1'";
+            }
+            echo ">";
+
+            echo " Dislikes: <span id='dislikes$post->id'>$post->dislikes ";
+
+            echo "</span><input type='button' name='$post->id' value = 'Dislike' class='btn btn-danger dislikePost' ";
+                if($this->session->userdata('logged_in') == 0){
+                    echo "disabled='1'";
+                }
+            echo "></p>";
+
+            echo "</div></div><br>";
         }
         ?>
     </div>
@@ -252,7 +266,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <h3> Enter Comment here : </h3><br>
 <!--        <input type="text" placeholder="Username" id="user"> <br><br>-->
         <textarea id="comment" class="form-control" rows="4" placeholder="Comment"></textarea><br>
-        <button id="enterComment" class="btn btn-primary" disabled>Comment</button> <br><br>
+        <?php
+            echo "<button id='enterComment' class='btn btn-primary' ";
+            if($this->session->userdata('logged_in') == 0){
+                echo "disabled='1'";
+            }
+            echo ">Comment</button>";
+        ?>
+
+        <br><br>
     </div>
 
         <?php
@@ -288,6 +310,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             foreach ($comments as $comment) {
                 printComment($comment);
             }
+        } else {
+            echo "Be the first to comment!";
         }
         ?>
     </div>

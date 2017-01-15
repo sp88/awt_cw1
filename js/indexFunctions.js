@@ -143,6 +143,7 @@ $(document).ready(function () {
                 $('.likePost').prop('disabled', false);
                 $('.dislikePost').prop('disabled', false);
                 $('#enterPost').prop('disabled', false);
+                $('#enterComment').prop('disabled', false);
             },
             error: function (data) {
                 console.log(data);
@@ -177,6 +178,7 @@ function login() {
             $('.likePost').prop('disabled', false);
             $('.dislikePost').prop('disabled', false);
             $('#enterPost').prop('disabled', false);
+            $('#enterComment').prop('disabled', false);
         },
         error: function (data) {
             console.log(data);
@@ -197,6 +199,7 @@ function logout() {
             $('.likePost').prop('disabled', true);
             $('.dislikePost').prop('disabled', true);
             $('#enterPost').prop('disabled', true);
+            $('#enterComment').prop('disabled', true);
         },
         error: function (data) {
             console.log(data);
