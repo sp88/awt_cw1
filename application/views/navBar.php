@@ -8,7 +8,7 @@
                 "<li><a class='btn' href='#'>Welcome " . $this->session->userdata('username') . "! </a></li>" .
                 "<li><a class='btn btn-launch' href='/awt/index.php/profile'>Visit Profile</a>" .
                 "</li>" .
-                "<li><a class='btn btn-launch' href='/awt/index.php/logout'>Logout</a></li>" .
+                "<li><a class='btn btn-launch' href='javascript:logout();'>Logout</a></li>" .
                 "</ul>";
         } else {
             echo '<ul class="nav navbar-nav navbar-right">'.

@@ -59,12 +59,20 @@ class UserController extends CI_Controller
         }
     }
 
+    /**
+     * Login User
+     * Creates Session for the user
+     */
     public function login()
     {
         $fileContent = file_get_contents("php://input");
         $json = json_decode($fileContent);
-
-        echo json_encode($this->user->login($json->username, md5($json->password)));
+        if($this->user->login($json->username, md5($json->password))){
+            echo $this->load->view('navBar','',TRUE);
+        }
+        else {
+            echo json_encode(array('error'=>"Something went wrong"));
+        }
     }
 
     /**
@@ -75,8 +83,7 @@ class UserController extends CI_Controller
     {
         $this->session->unset_userdata('logged_in');
         $this->session->sess_destroy();
-        $this->load->view('index');
-//        redirect('index', 'refresh');
+        echo $this->load->view('navBar','',TRUE);
     }
 
 

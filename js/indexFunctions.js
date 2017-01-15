@@ -143,22 +143,42 @@ $(document).ready(function () {
     });
 
     $('#login_btn').click(function () {
-        var username = $('#login_username').val();
-        var password = $('#password').val();
-
-        $.ajax({
-            url: '/awt/index.php/login',
-            method: 'POST',
-            data: JSON.stringify({'username': username, 'password': password}),
-            success: function (data) {
-                console.log(data);
-                $("#closeModalBTN").click();
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+        login();
     });
 
-
 }); // END
+
+function login() {
+    var username = $('#login_username').val();
+    var password = $('#password').val();
+
+    $.ajax({
+        url: '/awt/index.php/login',
+        method: 'POST',
+        data: JSON.stringify({'username': username, 'password': password}),
+        success: function (data) {
+            console.log(data);
+            $("#closeModalBTN").click();
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+            $('#topNav').html(data);
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+}
+
+function logout() {
+    $.ajax({
+        url: '/awt/index.php/logout',
+        method: 'GET',
+        success: function (data) {
+            console.log("logout");
+            $('#topNav').html(data);
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+}

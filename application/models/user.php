@@ -50,12 +50,12 @@ class User extends CI_Model
                 );
                 $this->session->set_userdata($sess_array);
             }
-            return $sess_array;
+            return TRUE;
 
         }
         else
         {
-            return false;
+            return FALSE;
         }
     }
 

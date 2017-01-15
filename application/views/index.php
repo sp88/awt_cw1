@@ -85,7 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 
-<?php $this->view('navBar'); ?>
+<div id="topNav"> <?php $this->view('navBar'); ?> </div>
 <div class="container">
 
     <?php $this->view('loginModal'); ?>
