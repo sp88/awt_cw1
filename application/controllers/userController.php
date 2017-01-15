@@ -59,6 +59,14 @@ class UserController extends CI_Controller
         }
     }
 
+    public function login()
+    {
+        $fileContent = file_get_contents("php://input");
+        $json = json_decode($fileContent);
+
+        echo json_encode($this->user->login($json->username, md5($json->password)));
+    }
+
     /**
      * Logout user from system
      * Destroys session data

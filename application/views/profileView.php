@@ -78,40 +78,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script type="application/javascript" src="/awt/js/underscore-min.js"></script>
     <script type="application/javascript" src="/awt/js/json2.js"></script>
     <script type="application/javascript" src="/awt/js/backbone-min.js"></script>
-    <!--	<link href="--><? //= base_url();?><!--css/style.css" rel="stylesheet">-->
+    <link href="/awt/css/style.css" rel="stylesheet">
     <link href="<?= base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="<?= base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
 
     <script type="application/javascript">
         $(document).ready(function () {
 
-        }
+        });
     </script>
 </head>
 <body>
-<div class="navbar navbar-default" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="/awt/">Idea Talk!</a>
-
-        <?php
-        if ($this->session->userdata('logged_in')) {
-            echo "<ul class='nav navbar-nav navbar-right'>" .
-                "<li>" .
-                "<li><a class='btn' href='#'>Welcome " . $this->session->userdata('username') . "! </a></li>" .
-                "<li><a class='btn' href='/awt/index.php/userController/visitProfile'>Visit Profile</a>" .
-                "</li>" .
-                "<li><a class='btn btn-launch' href='/awt/index.php/userController/logout'>Logout</a></li>" .
-                "</ul>";
-        } else {
-            echo '<ul class="nav navbar-nav navbar-right">'.
-                '<li><a class="btn btn-launch" href="" data-toggle="modal" data-target="#loginModal"> Sign in'.
-                '/ Sign up</a></li>'.
-                ' </ul>';
-        }
-        ?>
-
-    </div>
-</div>
+<?php $this->view('navBar'); ?>
+<!--<div class="navbar navbar-default" role="navigation">-->
+<!--    <div class="navbar-header">-->
+<!--        <a class="navbar-brand" href="/awt/">Idea Talk!</a>-->
+<!---->
+<!--        --><?php
+//        if ($this->session->userdata('logged_in')) {
+//            echo "<ul class='nav navbar-nav navbar-right'>" .
+//                "<li>" .
+//                "<li><a class='btn' href='#'>Welcome " . $this->session->userdata('username') . "! </a></li>" .
+//                "<li><a class='btn' href='/awt/index.php/userController/visitProfile'>Visit Profile</a>" .
+//                "</li>" .
+//                "<li><a class='btn btn-launch' href='/awt/index.php/userController/logout'>Logout</a></li>" .
+//                "</ul>";
+//        } else {
+//            echo '<ul class="nav navbar-nav navbar-right">'.
+//                '<li><a class="btn btn-launch" href="" data-toggle="modal" data-target="#loginModal"> Sign in'.
+//                '/ Sign up</a></li>'.
+//                ' </ul>';
+//        }
+//        ?>
+<!---->
+<!--    </div>-->
+<!--</div>-->
 <div class="container">
     This is the profile!! Welcome
 

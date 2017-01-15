@@ -1,7 +1,10 @@
-/*.eachPost {*/
-	/*color:red;*/
-	/**/
-/*}*/
+body {
+	background-image: url("/awt/images/talking.jpg");
+}
+
+.container {
+	background-color: white;
+}
 
 .bt-login,.bt-login:hover, .bt-login:active, .bt-login:focus {
 	background-color: #ff8627;

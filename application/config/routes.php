@@ -52,7 +52,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['user']['GET'] = 'userController/get';
 $route['user']['POST'] = 'userController/post';
+$route['profile'] = 'userController/visitProfile';
 $route['logout'] = 'userController/logout';
+$route['login']['POST'] = 'userController/login';
 
 $route['default_controller'] = 'postController/post';
 $route['404_override'] = '';

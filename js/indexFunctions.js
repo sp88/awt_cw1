@@ -142,5 +142,23 @@ $(document).ready(function () {
         });
     });
 
+    $('#login_btn').click(function () {
+        var username = $('#login_username').val();
+        var password = $('#password').val();
+
+        $.ajax({
+            url: '/awt/index.php/login',
+            method: 'POST',
+            data: JSON.stringify({'username': username, 'password': password}),
+            success: function (data) {
+                console.log(data);
+                $("#closeModalBTN").click();
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
 
 }); // END
