@@ -162,19 +162,7 @@ $(document).ready(function () {
         login();
     });
 
-    // Click function to get all user specific posts
-    $('#tab1').click(function () {
-        $.ajax({
-            url: '/awt/index.php/userController/getUserSpecificPosts',
-            method: 'GET',
-            success: function (data) {
 
-            },
-            error: function (data) {
-                console.log("userController/getUserSpecificPosts : "+data);
-            }
-        });
-    });
 
 }); // END
 
@@ -248,7 +236,7 @@ var VotePostModel = Backbone.Model.extend({
 
 function getUserSpecificPosts() {
     $.ajax({
-        url: '/awt/index.php/logout',
+        url: '',
         method: 'GET',
         success: function (data) {
             console.log("logout");

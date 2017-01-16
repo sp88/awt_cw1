@@ -9,6 +9,7 @@ class UserController extends CI_Controller
         $this->load->helper("url");
         $this->load->model('user');
         $this->load->model('post');
+        $this->load->model('comment');
         $this->load->library('session');
         $this->load->database();
     }
@@ -97,7 +98,10 @@ class UserController extends CI_Controller
         else{
             // load related data to the user
             $data['posts'] =  $this->post->getRecordsForUser($this->session->userdata('id'));
-//            $data['comments'] =  $this->comment->
+            $data['comments'] =  $this->comment->allCommentsFromUser();
+            foreach ($data['comments'] as $comment){
+                $comment->post = $this->post->getPost($comment->post);
+            }
             $this->load->view('profileView', $data);
         }
     }

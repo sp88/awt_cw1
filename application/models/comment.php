@@ -61,4 +61,14 @@ class Comment extends CI_Model
             $this->getNestedChildComments($row);
         }
     }
+
+    public function allCommentsFromUser()
+    {
+        $this->db->where('user', $this->session->userdata('id'));
+        $query = $this->db->get('comment');
+        foreach ($query->result('comment') as $row){
+            $comments[] = $row;
+        }
+        return $comments;
+    }
 }
