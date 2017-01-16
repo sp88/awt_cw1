@@ -96,8 +96,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div id="body">
         <br><br>
 <!--        User: <input type="text" id="user">-->
-        Post: <input type="text" id="post">
-        URL: <input type="url" id="url">
+        <input type="text" id="post" placeholder="Post">
+        <input type="url" id="url" placeholder="URL">
         <?php
             echo "<button id='enterPost' class='btn btn-success' ";
             if($this->session->userdata('logged_in') == 0){
