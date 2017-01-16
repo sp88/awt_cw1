@@ -150,6 +150,7 @@ $(document).ready(function () {
                 $('.dislikePost').prop('disabled', false);
                 $('#enterPost').prop('disabled', false);
                 $('#enterComment').prop('disabled', false);
+                $('.replyButton').prop('disabled', false);
             },
             error: function (data) {
                 console.log(data);
@@ -185,6 +186,7 @@ function login() {
             $('.dislikePost').prop('disabled', false);
             $('#enterPost').prop('disabled', false);
             $('#enterComment').prop('disabled', false);
+            $('.replyButton').prop('disabled', false);
         },
         error: function (data) {
             console.log(data);
@@ -206,6 +208,7 @@ function logout() {
             $('.dislikePost').prop('disabled', true);
             $('#enterPost').prop('disabled', true);
             $('#enterComment').prop('disabled', true);
+            $('.replyButton').prop('disabled', true);
         },
         error: function (data) {
             console.log(data);

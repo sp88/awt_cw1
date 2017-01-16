@@ -60,10 +60,12 @@ class CommentController extends CI_Controller
     {
         $data = file_get_contents("php://input");
         $json = json_decode($data);
-        if($json->user == '' || $json->comment == '' || $json->post == '' ){
+        if($json->comment == '' || $json->post == '' ){
             echo json_encode(array("error" => "Fields Cannot be empty."));
             return;
         }
+        // get user from the session
+        $json->user = $this->session->userdata('id');
         $insertedId = $this->comment->saveComment($json);
         echo json_encode(array("insertedId" => $insertedId));
     }
@@ -75,10 +77,11 @@ class CommentController extends CI_Controller
     {
         $data = file_get_contents("php://input");
         $json = json_decode($data);
-        if($json->user == '' || $json->comment == '' || $json->parentComment == ''){
+        if($json->comment == '' || $json->parentComment == ''){
             echo json_encode(array("error" => "Fields Cannot be empty."));
             return;
         }
+        $json->user = $this->session->userdata('id');
         $insertedId = $this->comment->saveComment($json);
         echo json_encode(array("replyId" => $insertedId));
     }

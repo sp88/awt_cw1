@@ -181,9 +181,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             /*
              * Navigate to Previous page when title is clicked
              */
-            $('#enterComment').click(function () {
-                location.reload();
-            });
+//            $('#enterComment').click(function () {
+//                location.reload();
+//            });
 
 
         }); // END
@@ -261,12 +261,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     . " at " . date("d/m/Y H:i:s", (($comment->date)/1000)) . " "
                     . "<button class='btn btn-link replyButton' id='showReplyArea$comment->id' name='$comment->id'>"
                     . "Reply</button></p>"
-                    . "<div><input type='text' id='userInput$comment->id' placeholder='User' style='display:none'></div>"
+//                    . "<div><input type='text' id='userInput$comment->id' placeholder='User' style='display:none'></div>"
                     . "<div><textarea type='text' id='userReply$comment->id' placeholder='Reply' class='form-control'
-                            style='display:none'></textarea></div>"
-                    . "<div><input type='button' id='replyButton$comment->id' value = 'Reply' name='$comment->id'
-                            class='btn btn-primary sendReplyButton' style='display:none'></div>"
-                ;
+                            style='display:none'></textarea></div>";
+
+                echo "<div><input type='button' id='replyButton$comment->id' value = 'Reply' name='$comment->id'
+                            class='btn btn-primary sendReplyButton' style='display:none' ";
+//                if ($this->session->userdata('logged_in') == 0) {
+//                    echo "disabled='1'";
+//                }
+                echo "></div>";
+
                 printChildComments($comment->childComments);
                 echo "</div>";
             }
