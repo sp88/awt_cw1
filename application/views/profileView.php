@@ -79,6 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script type="application/javascript" src="/awt/js/json2.js"></script>
     <script type="application/javascript" src="/awt/js/backbone-min.js"></script>
     <link href="/awt/css/style.css" rel="stylesheet">
+    <link href="/awt/css/tabbedMenu.css" rel="stylesheet">
     <link href="<?= base_url(); ?>bootstrap/css/bootstrap.css" rel="stylesheet">
     <script src="<?= base_url(); ?>bootstrap/js/bootstrap.min.js"></script>
     <script type="application/javascript" src="/awt/js/indexFunctions.js"></script>
@@ -92,7 +93,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 <div id="topNav"> <?php $this->view('navBar'); ?> </div>
 <div class="container">
-    This is the profile!! Welcome
+    <div class="panel-success">
+        <h2> <?php echo $this->session->userdata('username'); ?> you have scored <?php // enter marks here ?> </h2>
+    </div>
+
+    <?php $this->view('tabbedView'); ?>
+<!--    <div class="">-->
+<!---->
+<!--    </div>-->
 
     <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds.</p>
 </div>

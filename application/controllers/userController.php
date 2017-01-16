@@ -8,6 +8,7 @@ class UserController extends CI_Controller
         parent::__construct();
         $this->load->helper("url");
         $this->load->model('user');
+        $this->load->model('post');
         $this->load->library('session');
         $this->load->database();
     }
@@ -95,8 +96,17 @@ class UserController extends CI_Controller
         }
         else{
             // load related data to the user
-            $this->load->view('profileView');
+            $data['posts'] =  $this->post->getRecordsForUser($this->session->userdata('id'));
+//            $data['comments'] =  $this->comment->
+            $this->load->view('profileView', $data);
         }
+    }
+
+    public function getUserSpecificPosts()
+    {
+        $postList = $this->post->getRecordsForUser($this->session->userdata('id'));
+//        print_r($postList);
+        $this->load->view();
     }
 
 }

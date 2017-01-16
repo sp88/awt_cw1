@@ -162,6 +162,20 @@ $(document).ready(function () {
         login();
     });
 
+    // Click function to get all user specific posts
+    $('#tab1').click(function () {
+        $.ajax({
+            url: '/awt/index.php/userController/getUserSpecificPosts',
+            method: 'GET',
+            success: function (data) {
+
+            },
+            error: function (data) {
+                console.log("userController/getUserSpecificPosts : "+data);
+            }
+        });
+    });
+
 }); // END
 
 
@@ -230,3 +244,23 @@ var VotePostModel = Backbone.Model.extend({
         dislikes: ''
     }
 });
+
+
+function getUserSpecificPosts() {
+    $.ajax({
+        url: '/awt/index.php/logout',
+        method: 'GET',
+        success: function (data) {
+            console.log("logout");
+            $('#topNav').html(data);
+            $('.likePost').prop('disabled', true);
+            $('.dislikePost').prop('disabled', true);
+            $('#enterPost').prop('disabled', true);
+            $('#enterComment').prop('disabled', true);
+            $('.replyButton').prop('disabled', true);
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+}

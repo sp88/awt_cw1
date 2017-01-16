@@ -106,8 +106,25 @@ class Post extends CI_Model
     /**
      * @return mixed
      */
-    private function record_count() {
+    public function record_count() {
         return $this->db->count_all("Post");
+    }
+
+    public function getRecordsForUser($user)
+    {
+        $this->db->where('user', $user);
+        $query = $this->db->get('post');
+        if ( $query->num_rows() > 0 )
+        {
+            $results = array();
+            foreach ($query->result('post') as $row){
+                $row->likes = $this->votePost->getLikes($row->id);
+                $row->dislikes = $this->votePost->getDisLikes($row->id);
+                $results[] = $row;
+            }
+            return $results;
+        }
+        return false;
     }
 
 }
