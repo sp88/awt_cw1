@@ -66,6 +66,7 @@ class Comment extends CI_Model
     {
         $this->db->where('user', $this->session->userdata('id'));
         $query = $this->db->get('comment');
+        $comments = array();
         foreach ($query->result('comment') as $row){
             $comments[] = $row;
         }

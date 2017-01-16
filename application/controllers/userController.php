@@ -99,10 +99,14 @@ class UserController extends CI_Controller
             // load related data to the user
             $data['posts'] =  $this->post->getRecordsForUser($this->session->userdata('id'));
             $data['comments'] =  $this->comment->allCommentsFromUser();
-            foreach ($data['comments'] as $comment){
-                $comment->post = $this->post->getPost($comment->post);
+            if(!is_null($data['comments'])){
+                foreach ($data['comments'] as $comment){
+                    $comment->post = $this->post->getPost($comment->post);
+                }
             }
+
             $this->load->view('profileView', $data);
+//            var_dump($data);
         }
     }
 

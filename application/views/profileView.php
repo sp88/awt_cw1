@@ -98,9 +98,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 
     <?php $this->view('tabbedView'); ?>
-<!--    <div class="">-->
-<!---->
-<!--    </div>-->
 
     <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds.</p>
 </div>

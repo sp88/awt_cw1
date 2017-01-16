@@ -9,7 +9,7 @@
         <div class="tab-content">
             <div class="tab-pane fade in active" id="tab1primary">
                 <?php
-                    if(isset($posts)){
+                    if(!is_null($posts) && isset($posts) && !empty($posts)){
                         foreach($posts as $post){
                             echo "<div class='container'> "
                                 . "<div class='form-group .col-md-1'>"
@@ -25,10 +25,8 @@
 
             <div class="tab-pane fade" id="tab2primary">
                 <?php
-                    if(isset($comments)){
+                    if(!is_null($comments) && isset($comments) && !empty($comments)){
                         foreach($comments as $comment){
-//                            $post = $comment->post;
-//                            echo "<br><br>";
                             echo "<div class='container'> "
                                 . "<div class='form-group .col-md-1'>"
                                 . "<a href=" . base_url() . "index.php/commentController/comment/$post->id>$post->description</a>"
@@ -41,9 +39,7 @@
                                 . "<p>$comment->comment</p>"
                                 . "</div>"
                                 . "</div>";
-//                            print_r($comment);
                         }
-//                        print_r($comments);
                     }
                 ?>
             </div>
